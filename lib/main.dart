@@ -44,9 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Future _link(String? url) async {
     if (url != null) {
       return await launch(url);
-    }
-    else {
-      throw 'alfa';
+    } else {
+      throw 'null';
     }
   }
 
@@ -61,7 +60,8 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(child: _buildQrView(context)),
-            Expanded(child: Column(children: <Widget> [
+            Expanded(
+                child: Column(children: <Widget>[
               if (result != null)
                 Column(children: <Widget>[
                   Text('Format : ${result?.format}'),
@@ -74,18 +74,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   Text('nil'),
                   Text('nil'),
                 ]),
-             Row(children: <Widget> [
-                  RaisedButton(
-                    onPressed: () async => await controller?.pauseCamera() ,
-                    child: Text('pause'),
-                  ),
-                  RaisedButton(
-                    onPressed: () async => await controller?.resumeCamera(),
-                    child: Text('resume'),
-                  )
-                ])
-              ])
-            )
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    ElevatedButton(
+                      onPressed: () async => await controller?.resumeCamera(),
+                      child: Text('resume', style: TextStyle(fontSize: 20)),
+                    ),
+                    ElevatedButton(
+                      onPressed: () async => await controller?.pauseCamera(),
+                      child: Text('pause', style: TextStyle(fontSize: 20)),
+                    )
+                  ])
+            ]))
           ],
         ),
       ),
@@ -94,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildQrView(BuildContext context) {
     return QRView(
-      key:qrKey,
+      key: qrKey,
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(
         borderColor: Colors.red,
