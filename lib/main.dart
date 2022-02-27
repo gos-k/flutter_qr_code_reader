@@ -51,6 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    const textStyle = StrutStyle( fontSize: 15, height: 2 );
+    const buttonStyle = TextStyle( fontSize: 20 );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -62,31 +65,31 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(child: _buildQrView(context)),
             Expanded(
                 child: Column(children: <Widget>[
-              if (result != null)
-                Column(children: <Widget>[
-                  Text('Format : ${result?.format}'),
-                  TextButton(
-                      onPressed: () => _link(result?.code),
-                      child: Text('${result?.code}')),
-                ])
-              else
-                Column(children: <Widget>[
-                  Text('nil'),
-                  Text('nil'),
-                ]),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    ElevatedButton(
-                      onPressed: () async => await controller?.resumeCamera(),
-                      child: Text('resume', style: TextStyle(fontSize: 20)),
-                    ),
-                    ElevatedButton(
-                      onPressed: () async => await controller?.pauseCamera(),
-                      child: Text('pause', style: TextStyle(fontSize: 20)),
-                    )
-                  ])
-            ]))
+                  if (result != null)
+                    Column(children: <Widget>[
+                      Text('Format : ${result?.format}', strutStyle: textStyle ),
+                      TextButton(
+                          onPressed: () => _link(result?.code),
+                          child: Text('${result?.code}', style: TextStyle( fontSize: 15 ))),
+                    ])
+                  else
+                    Column(children: <Widget>[
+                      Text('nil', strutStyle: textStyle),
+                      Text('nil', strutStyle: textStyle),
+                    ]),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        ElevatedButton(
+                          onPressed: () async => await controller?.resumeCamera(),
+                          child: Text('resume', style: buttonStyle),
+                        ),
+                        ElevatedButton(
+                          onPressed: () async => await controller?.pauseCamera(),
+                          child: Text('pause', style: buttonStyle),
+                        )
+                      ])
+                ]))
           ],
         ),
       ),
